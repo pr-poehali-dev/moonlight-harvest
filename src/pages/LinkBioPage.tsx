@@ -2,45 +2,55 @@ import { motion } from "framer-motion"
 import { ProfileSection } from "@/components/ProfileSection"
 import { LinkCard } from "@/components/LinkCard"
 import { SocialFooter } from "@/components/SocialFooter"
-import { Globe, Youtube, Mail, ShoppingBag, FileText, MessageCircle, Send } from "lucide-react"
+import Icon from "@/components/ui/icon"
 
-const links = [
+const categories = [
   {
-    title: "Мой сайт",
-    description: "Портфолио и услуги",
+    title: "Доходы",
+    amount: "+ 85 000 ₽",
+    description: "Зарплата, фриланс",
     href: "#",
-    icon: Globe,
+    iconName: "TrendingUp",
+    color: "text-emerald-600",
   },
   {
-    title: "YouTube канал",
-    description: "Видео и туториалы",
+    title: "Расходы",
+    amount: "- 52 300 ₽",
+    description: "Продукты, транспорт, развлечения",
     href: "#",
-    icon: Youtube,
+    iconName: "TrendingDown",
+    color: "text-rose-600",
   },
   {
-    title: "Магазин",
-    description: "Товары и услуги",
+    title: "Продукты",
+    amount: "- 18 500 ₽",
+    description: "15 транзакций",
     href: "#",
-    icon: ShoppingBag,
+    iconName: "ShoppingCart",
+    color: "text-gray-700",
   },
   {
-    title: "Telegram",
-    description: "Написать напрямую",
+    title: "Транспорт",
+    amount: "- 6 200 ₽",
+    description: "8 транзакций",
     href: "#",
-    icon: Send,
+    iconName: "Car",
+    color: "text-gray-700",
   },
   {
-    title: "Бесплатные материалы",
-    description: "Шаблоны и гайды",
+    title: "Развлечения",
+    amount: "- 12 800 ₽",
+    description: "6 транзакций",
     href: "#",
-    icon: FileText,
+    iconName: "Smile",
+    color: "text-gray-700",
   },
 ]
 
-const socials = [
-  { icon: Send, href: "#", label: "Telegram" },
-  { icon: MessageCircle, href: "#", label: "WhatsApp" },
-  { icon: Mail, href: "#", label: "Email" },
+const recentTransactions = [
+  { label: "Супермаркет", amount: "- 2 340 ₽" },
+  { label: "Такси", amount: "- 420 ₽" },
+  { label: "Зарплата", amount: "+ 65 000 ₽" },
 ]
 
 const containerVariants = {
@@ -211,22 +221,29 @@ export function LinkBioPage() {
       >
         <motion.div variants={itemVariants} className="pt-2">
           <ProfileSection
-            name="GlassLinks"
-            bio="Креативный дизайнер и разработчик"
+            name="Ваш баланс"
+            bio="+ 32 700 ₽"
             imageUrl="/images/544291433-18043960274659947-5766591717842883293-n.jpg"
           />
         </motion.div>
 
         <motion.div className="space-y-3 py-8" variants={containerVariants}>
-          {links.map((link) => (
-            <motion.div key={link.title} variants={itemVariants}>
-              <LinkCard {...link} />
+          {categories.map((category) => (
+            <motion.div key={category.title} variants={itemVariants}>
+              <LinkCard 
+                title={category.title}
+                amount={category.amount}
+                description={category.description}
+                href={category.href}
+                iconName={category.iconName}
+                color={category.color}
+              />
             </motion.div>
           ))}
         </motion.div>
 
         <motion.div variants={itemVariants} className="pb-2">
-          <SocialFooter socials={socials} copyright="2025 GlassLinks" />
+          <SocialFooter transactions={recentTransactions} />
         </motion.div>
       </motion.div>
     </main>

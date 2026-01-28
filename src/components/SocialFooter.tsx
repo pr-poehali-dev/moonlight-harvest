@@ -1,51 +1,43 @@
 import { motion } from "framer-motion"
-import { type LucideIcon } from "lucide-react"
 
-interface SocialLink {
-  icon: LucideIcon
-  href: string
+interface Transaction {
   label: string
+  amount: string
 }
 
 interface SocialFooterProps {
-  socials: SocialLink[]
-  copyright: string
+  transactions: Transaction[]
 }
 
-export function SocialFooter({ socials, copyright }: SocialFooterProps) {
+export function SocialFooter({ transactions }: SocialFooterProps) {
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div
-        className="flex items-center gap-2 px-4 py-2 rounded-full"
-        style={{
-          background: "rgba(255, 255, 255, 0.4)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-          boxShadow: `
-            inset 0 1px 1px rgba(255, 255, 255, 0.6),
-            0 0 0 1px rgba(255, 255, 255, 0.3),
-            0 2px 8px rgba(0, 0, 0, 0.04)
-          `,
-        }}
-      >
-        {socials.map((social) => (
-          <motion.a
-            key={social.label}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={social.label}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-gray-500 transition-colors hover:text-gray-700"
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 600, damping: 20 }}
-          >
-            <social.icon className="h-5 w-5" strokeWidth={1.5} />
-          </motion.a>
+    <div
+      className="rounded-[20px] px-5 py-5 w-full"
+      style={{
+        background: "rgba(255, 255, 255, 0.4)",
+        backdropFilter: "blur(40px) saturate(180%)",
+        WebkitBackdropFilter: "blur(40px) saturate(180%)",
+        boxShadow: `
+          inset 0 1px 1px rgba(255, 255, 255, 0.8),
+          inset 0 -1px 1px rgba(255, 255, 255, 0.1),
+          0 0 0 1px rgba(255, 255, 255, 0.5),
+          0 2px 8px rgba(0, 0, 0, 0.04),
+          0 8px 24px rgba(0, 0, 0, 0.06)
+        `,
+        border: "1px solid rgba(255, 255, 255, 0.4)",
+      }}
+    >
+      <h3 className="text-sm font-semibold text-gray-700 mb-3">Последние транзакции</h3>
+      <div className="space-y-2">
+        {transactions.map((transaction, index) => (
+          <div key={index} className="flex items-center justify-between text-xs">
+            <span className="text-gray-600">{transaction.label}</span>
+            <span className={`font-semibold ${transaction.amount.startsWith('+') ? 'text-emerald-600' : 'text-rose-600'}`}>
+              {transaction.amount}
+            </span>
+          </div>
         ))}
       </div>
-
-      <p className="text-[11px] text-gray-400">{copyright}</p>
     </div>
   )
 }

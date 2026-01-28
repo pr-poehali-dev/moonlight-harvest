@@ -1,14 +1,17 @@
 import { motion } from "framer-motion"
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { ChevronRight } from "lucide-react"
+import Icon from "@/components/ui/icon"
 
 interface LinkCardProps {
   title: string
+  amount?: string
   description?: string
   href: string
-  icon: LucideIcon
+  iconName: string
+  color?: string
 }
 
-export function LinkCard({ title, description, href, icon: Icon }: LinkCardProps) {
+export function LinkCard({ title, amount, description, href, iconName, color = "text-gray-700" }: LinkCardProps) {
   return (
     <motion.a
       href={href}
@@ -79,7 +82,7 @@ export function LinkCard({ title, description, href, icon: Icon }: LinkCardProps
       />
 
       <div
-        className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-gray-700"
+        className={`relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${color}`}
         style={{
           background: "rgba(255, 255, 255, 0.8)",
           boxShadow: `
@@ -91,11 +94,14 @@ export function LinkCard({ title, description, href, icon: Icon }: LinkCardProps
           border: "1px solid rgba(255, 255, 255, 0.6)",
         }}
       >
-        <Icon className="h-5 w-5" strokeWidth={1.75} />
+        <Icon name={iconName} className="h-5 w-5" strokeWidth={1.75} />
       </div>
 
       <div className="relative flex-1 min-w-0">
-        <h3 className="text-[15px] font-semibold text-gray-800 tracking-tight">{title}</h3>
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="text-[15px] font-semibold text-gray-800 tracking-tight">{title}</h3>
+          {amount && <span className={`text-[14px] font-semibold ${color}`}>{amount}</span>}
+        </div>
         {description && <p className="text-[12px] text-gray-500 truncate mt-0.5">{description}</p>}
       </div>
 
