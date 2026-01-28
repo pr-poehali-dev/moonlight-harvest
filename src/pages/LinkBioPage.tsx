@@ -1,47 +1,54 @@
 import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 import { ProfileSection } from "@/components/ProfileSection"
 import { LinkCard } from "@/components/LinkCard"
 import { SocialFooter } from "@/components/SocialFooter"
 import Icon from "@/components/ui/icon"
+import { Button } from "@/components/ui/button"
 
 const categories = [
   {
+    id: "income",
     title: "Доходы",
     amount: "+ 85 000 ₽",
     description: "Зарплата, фриланс",
-    href: "#",
+    href: "/categories/income",
     iconName: "TrendingUp",
     color: "text-emerald-600",
   },
   {
+    id: "expense",
     title: "Расходы",
     amount: "- 52 300 ₽",
     description: "Продукты, транспорт, развлечения",
-    href: "#",
+    href: "/categories/expense",
     iconName: "TrendingDown",
     color: "text-rose-600",
   },
   {
+    id: "products",
     title: "Продукты",
     amount: "- 18 500 ₽",
     description: "15 транзакций",
-    href: "#",
+    href: "/categories/products",
     iconName: "ShoppingCart",
     color: "text-gray-700",
   },
   {
+    id: "transport",
     title: "Транспорт",
     amount: "- 6 200 ₽",
     description: "8 транзакций",
-    href: "#",
+    href: "/categories/transport",
     iconName: "Car",
     color: "text-gray-700",
   },
   {
+    id: "entertainment",
     title: "Развлечения",
     amount: "- 12 800 ₽",
     description: "6 транзакций",
-    href: "#",
+    href: "/categories/entertainment",
     iconName: "Smile",
     color: "text-gray-700",
   },
@@ -81,6 +88,8 @@ const itemVariants = {
 }
 
 export function LinkBioPage() {
+  const navigate = useNavigate()
+
   return (
     <main className="relative min-h-screen px-6 py-10 flex flex-col overflow-hidden">
       <div className="fixed inset-0 z-0 bg-gradient-to-br from-slate-50 via-white to-slate-100" />
@@ -220,11 +229,30 @@ export function LinkBioPage() {
         className="relative z-10 mx-auto max-w-[400px] w-full flex flex-col flex-1 justify-between"
       >
         <motion.div variants={itemVariants} className="pt-2">
-          <ProfileSection
-            name="Ваш баланс"
-            bio="+ 32 700 ₽"
-            imageUrl="/images/544291433-18043960274659947-5766591717842883293-n.jpg"
-          />
+          <div className="flex items-center justify-between mb-4">
+            <ProfileSection
+              name="Ваш баланс"
+              bio="+ 32 700 ₽"
+              imageUrl="/images/544291433-18043960274659947-5766591717842883293-n.jpg"
+            />
+            <div className="flex gap-2">
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => navigate("/categories")}
+                className="rounded-full"
+              >
+                <Icon name="Settings" size={20} />
+              </Button>
+              <Button
+                size="icon"
+                onClick={() => navigate("/transactions/new")}
+                className="rounded-full"
+              >
+                <Icon name="Plus" size={20} />
+              </Button>
+            </div>
+          </div>
         </motion.div>
 
         <motion.div className="space-y-3 py-8" variants={containerVariants}>
